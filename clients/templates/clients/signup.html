@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBud Registration</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(135deg, #1f1f2e, #3b3b58);
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+        }
+
+        .header {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #252537;
+            border-bottom: 2px solid #41416e;
+        }
+
+        .header .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .header .logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+        }
+
+        .header .logo span {
+            font-size: 1.6em;
+            font-weight: bold;
+        }
+
+        .header .login-link {
+            color: #b3b3cc;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+
+        .header .login-link:hover {
+            color: #ffffff;
+        }
+
+        .login-box {
+            background-color: #2a2a4b;
+            border-radius: 15px;
+            padding: 40px 50px;
+            width: 420px;
+            margin: 0 auto;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .login-box h2 {
+            margin-bottom: 20px;
+            color: #77aaff;
+            font-size: 2em;
+        }
+
+        .login-box p {
+            margin-bottom: 25px;
+            color: #ccccff;
+            font-size: 1.1em;
+        }
+
+        .login-box form {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .login-box label {
+            font-size: 1em;
+            margin-bottom: 8px;
+            color: #b3b3cc;
+            text-align: left;
+        }
+
+        .login-box input, .login-box select {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            background-color: #3a3a5c;
+            color: #ffffff;
+            font-size: 1em;
+        }
+
+        .login-box input::placeholder {
+            color: #9999cc;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 15px;
+            background-color: #4c8bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-box button:hover {
+            background-color: #3a6edb;
+        }
+
+        .signup-link {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .signup-link a {
+            color: #77aaff;
+            text-decoration: none;
+            font-size: 1em;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+        a{
+            color: #ffffff; 
+            text-decoration: none; 
+        }
+        
+        a:hover {
+            color: #cccccc; 
+        }
+        
+
+        @media (max-width: 480px) {
+            .login-box {
+                padding: 30px 20px;
+                width: 90%;
+            }
+
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header .logo span {
+                font-size: 1.4em;
+            }
+
+            .header .login-link {
+                margin-top: 10px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="logo">
+            <img src="logo.png" alt="StudyBud Logo">
+            <a href="{% url "home" %}">  <span>StudyBud</span></a>
+
+        </div>
+        <a href="{% url "login" %}" class="login-link">Login</a>
+    </div>
+
+    <div class="login-box">
+        <h2>Register</h2>
+        {% comment %} <p>Registration</p> {% endcomment %}
+        <form action="{% url "signup" %}" method="post">
+            {% csrf_token %}
+            <label for="firstname">First Name</label>
+            <input type="text" id="firstname" name="firstname" placeholder="First Name" required>
+
+            <label for="lastname">Last Name</label>
+            <input type="text" id="lastname" name="lastname" placeholder="Last Name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="e.g. dennis_ivy@email.com" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="********" required>
+
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dateofbirth" name="dateofbirth" required>
+
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" required>
+                <option value="" disabled selected>Select Gender</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+                <option value="O">Other</option>
+            </select>
+
+            <label for="contactno">Contact Number</label>
+            <input type="tel" id="contactno" name="contactno" pattern="\d{10}" placeholder="10-digit Contact Number" required>
+
+
+            <button type="submit">Register</button>
+        </form>
+
+        <div class="signup-link">
+            <p>Already have an account? <a href="{% url "login" %}">Login</a></p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
