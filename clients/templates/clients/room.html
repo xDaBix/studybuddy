@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Room</title>
+    {% load static %}
+    <style>
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+            color: #b3b3cc;
+        }
+        
+        body {
+            margin: 0;
+            font-family: 'Roboto', Arial, sans-serif;
+            color: #ffffff;
+            background-color: #1f1f2e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%%; /* Full viewport height */
+            
+        }
+        
+        .container {
+            text-align: center;
+            width: 100%;
+            
+        }
+        
+        .header {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: #252537;
+            border-bottom: 1px solid #41416e;
+            
+        }
+        
+        .header .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header .logo img {
+            width: 36px;
+            height: 36px;
+            margin-right: 12px;
+        }
+        
+        .header .logo span {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #77aaff;
+        }
+        
+        .header .login-link {
+            color: #b3b3cc;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+        
+        .header .login-link:hover {
+            color: #ffffff;
+        }
+        
+        .room-box {
+            background-color: #252537;
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        
+        .room-box input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background-color: #3a3a5c;
+            color: #ffffff;
+            font-size: 1.1em;
+            box-sizing: border-box; /* Ensures padding does not affect width */
+        }
+        
+        .room-box input::placeholder {
+            color: #9999cc;
+        }
+        
+        .room-box button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4c8bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            box-sizing: border-box; /* Ensures padding does not affect width */
+        }
+        
+        .room-box button:hover {
+            background-color: #3a6edb;
+        }
+        
+        @media (max-width: 768px) {
+            .room-box {
+                width: 90%; /* Make the box responsive for smaller screens */
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <img src="{% static 'images/logo.png' %}" alt="logo">
+                <span>StudyBud</span>
+            </div>
+            <a href="{% url 'login' %}" class="login-link">Login</a>
+        </div>
+
+        <div class="room-box">
+            <h2>Create a Room</h2>
+            <form action="{% url 'createroom' %}" method="post">
+                {% csrf_token %}
+                
+                <label for="name">Room Name</label>
+                <input type="text" name="name" id="name" placeholder="Enter room name" required>
+                
+                <label for="description">Room Description</label>
+                <input type="text" name="description" id="description" placeholder="Enter room description" required>
+                
+                <button type="submit">Create Room</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

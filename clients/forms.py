@@ -24,3 +24,8 @@ class regform(forms.Form):
         label='Gender',
         widget=forms.Select(attrs={'class': 'gender-dropdown'})
     )
+
+class roomform(forms.Form):
+    name=forms.CharField(max_length=50,label="name")
+    description=forms.CharField(widget=forms.Textarea,label="description")
+    

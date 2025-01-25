@@ -22,7 +22,7 @@ class room(models.Model):
     roomid=models.AutoField(primary_key=True)
     name=models.CharField(max_length=50)
     roomdescription=models.TextField()
-    updatetime=models.DateTimeField(auto_now=True)
+    updatetime=models.DateTimeField(auto_now=True,null=True)
     createdtime=models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

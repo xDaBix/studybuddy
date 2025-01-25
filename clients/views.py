@@ -1,13 +1,14 @@
 from datetime import datetime, timedelta, timezone
 import random
 from django.conf import settings
+from django.utils import timezone
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.http import HttpResponse
-from .models import registration
-from .forms import regform
+from .models import registration,room
+from .forms import regform,roomform
 from django.contrib.auth.hashers import make_password, check_password
 
 
@@ -109,8 +110,8 @@ def login(request):
 def home(request):
     if not request.session.get("id"):
         return redirect('login')
-    
-    return render(request, "clients/home.html")
+    ro=room.objects.all()
+    return render(request, "clients/home.html",{'room':ro})
 
 
 def verifyotp(request):
@@ -143,8 +144,20 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
+
 def createroom(request):
     if not request.session.get("id"):
         return redirect('login')
-    
-    return render(request, "clients/createroom.html")
+    if request.method == "POST":
+        form=roomform(request.POST)
+        if form.is_valid():
+            name=request.POST.get('name')
+            description=request.POST.get('description')
+            
+            room1=room(name=name,roomdescription=description)
+            room1.save()
+        else:
+            messages.error(request, 'Please correct the errors below.') 
+    else:
+        form=roomform()
+    return render(request, "clients/room.html",{"form":form})
