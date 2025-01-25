@@ -142,3 +142,9 @@ def verifyotp(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
+
+def createroom(request):
+    if not request.session.get("id"):
+        return redirect('login')
+    
+    return render(request, "clients/createroom.html")

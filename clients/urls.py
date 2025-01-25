@@ -10,6 +10,7 @@ urlpatterns = [
     path('logout/',views.logout_view,name="logout"),
     path('signup/',views.signup,name="signup"),
     path('verifyotp/',views.verifyotp,name="verifyotp"),
+    path('createroom/',views.createroom,name="createroom"),
 
     
 ]
