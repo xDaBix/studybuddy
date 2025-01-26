@@ -24,6 +24,7 @@ class room(models.Model):
     roomdescription=models.TextField()
     updatetime=models.DateTimeField(auto_now=True,null=True)
     createdtime=models.DateTimeField(auto_now_add=True)
+    clientid=models.ForeignKey(registration,on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

@@ -110,8 +110,8 @@ def login(request):
 def home(request):
     if not request.session.get("id"):
         return redirect('login')
-    ro=room.objects.all()
-    return render(request, "clients/home.html",{'room':ro})
+    rooms=room.objects.all()
+    return render(request, "clients/home.html",{'room':rooms})
 
 
 def verifyotp(request):
@@ -153,11 +153,20 @@ def createroom(request):
         if form.is_valid():
             name=request.POST.get('name')
             description=request.POST.get('description')
-            
-            room1=room(name=name,roomdescription=description)
+            client_id = request.session.get("id")
+            client_instance = registration.objects.get(clientid=client_id)
+            room1=room(name=name,roomdescription=description,clientid=client_instance)
             room1.save()
         else:
             messages.error(request, 'Please correct the errors below.') 
     else:
         form=roomform()
     return render(request, "clients/room.html",{"form":form})
+
+def roomdetail(request):
+    if not request.session.get("id"):
+        return redirect('login')
+    client_id = request.session.get("id")
+    client_instance = registration.objects.get(clientid=client_id)
+    rooms = room.objects.filter(clientid=client_instance)
+    return render(request, "clients/roomdetail.html", {'room': rooms})

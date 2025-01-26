@@ -11,6 +11,8 @@ urlpatterns = [
     path('signup/',views.signup,name="signup"),
     path('verifyotp/',views.verifyotp,name="verifyotp"),
     path('createroom/',views.createroom,name="createroom"),
+    path('rooms/<int:id>/', views.roomdetail, name='rooms'),
+
 
     
 ]
