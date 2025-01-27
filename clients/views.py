@@ -110,8 +110,12 @@ def login(request):
 def home(request):
     if not request.session.get("id"):
         return redirect('login')
-    rooms=room.objects.all()
-    return render(request, "clients/home.html",{'room':rooms})
+    
+    room1 = room.objects.all()
+    print(room1)  
+    
+    return render(request, "clients/home.html", {'room': room1})
+
 
 
 def verifyotp(request):
@@ -162,11 +166,3 @@ def createroom(request):
     else:
         form=roomform()
     return render(request, "clients/room.html",{"form":form})
-
-def roomdetail(request):
-    if not request.session.get("id"):
-        return redirect('login')
-    client_id = request.session.get("id")
-    client_instance = registration.objects.get(clientid=client_id)
-    rooms = room.objects.filter(clientid=client_instance)
-    return render(request, "clients/roomdetail.html", {'room': rooms})

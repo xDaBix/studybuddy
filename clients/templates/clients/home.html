@@ -1,5 +1,27 @@
-<h1>home</h1>
-<a href="{% url "logout" %}">logout</a>
-<a href="{% url "createroom" %}">create room</a>
-
-{% include "clients/roomdetail.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy - Home</title>
+</head>
+<body>
+    <h1>Welcome to StudyBuddy</h1>
+    <h2>Available Rooms</h2>
+    <a href="{% url 'logout' %}">Logout</a>
+    <a href="{% url 'createroom' %}">Create Room</a>
+    <div>
+        {% for room in rooms %}
+            <div>
+                <h3>{{ room.name }}</h3>
+                <p>{{ room.description }}</p>
+                <a href="{% url 'rooms' room.id %}">View Details</a>
+            </div>
+            <hr>
+        {% empty %}
+            <p>No rooms available yet. Create one now!</p>
+        {% endfor %}
+    </div>
+    
+</body>
+</html>

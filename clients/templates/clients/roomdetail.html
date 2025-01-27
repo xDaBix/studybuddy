@@ -1,8 +1,0 @@
-
-{% for room in rooms %}
-    {% comment %} <a href="{% url 'rooms' room.roomid %}">Room</a> {% endcomment %}
-    <div>
-        <h2>{{ room.name }}</h2>
-        <p>{{ room.roomdescription }}</p>
-    </div>
-{% endfor %}
