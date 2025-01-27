@@ -161,6 +161,8 @@ def createroom(request):
             client_instance = registration.objects.get(clientid=client_id)
             room1=room(name=name,roomdescription=description,clientid=client_instance)
             room1.save()
+            messages.success(request, 'Room created successfully')
+            return redirect('home')
         else:
             messages.error(request, 'Please correct the errors below.') 
     else:
