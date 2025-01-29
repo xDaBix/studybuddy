@@ -1,23 +1,162 @@
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>Welcome to StudyBuddy</title>  
-</head>  
-<body>  
-    <h1>Welcome to StudyBuddy</h1>  
-    <h2>Available Rooms</h2>  
-    <ul>  
-          
-   {% for room in rooms %}  
-       <li>{{ room.name }}: {{ room.roomdescription }}</li>  
-   {% empty %}  
-       <li>No rooms available.</li>  
-    {% endfor %}  
-            
-    </ul>  
-    <a href="{% url 'createroom' %}">Create Room</a>
-    
-</body>  
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy - Home</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1f1f2e, #3b3b58); /* Reverted to previous color */
+            color: #ffffff;
+            display: flex;
+            flex-direction: column; /* Change to column layout */
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px; /* Add padding for spacing */
+        }
+
+        .header {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            width: 100%; /* Full width */
+            max-width: 800px; /* Limit max width for better readability */
+        }
+
+        .header .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .header .logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 12px;
+        }
+
+        .header .logo span {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #ecf0f1;
+        }
+
+        .header .login-link {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-size: 1em;
+            transition: color 0.3s;
+        }
+
+        .header .login-link:hover {
+            color: #ffffff;
+        }
+
+        .welcome-message {
+            margin-bottom: 20px;
+            color: #1abc9c;
+            font-size: 2em;
+        }
+
+        .description {
+            margin-bottom: 20px;
+            color: #bdc3c7;
+            font-size: 1.1em;
+        }
+
+        .room-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            text-align: left; /* Align text to the left */
+            width: 100%; /* Full width */
+            max-width: 800px; /* Limit max width for better readability */
+        }
+
+        .room-item {
+            background-color: rgba(52, 73, 94, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            color: #ffffff;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
+        }
+
+        .room-item:hover {
+            background-color: #34495e;
+        }
+
+        .room-item.empty {
+            color: #b3b3cc;
+            font-style: italic;
+        }
+
+        .create-room-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #1abc9c;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
+            margin-top: 20px; /* Add margin for spacing */
+        }
+
+        .create-room-button:hover {
+            background-color: #16a085;
+        }
+
+        .signup-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .signup-link a {
+            color: #1abc9c;
+            text-decoration: none;
+            font-size: 1em;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="logo.png" alt="StudyBuddy Logo">
+            <span>StudyBuddy</span>
+        </div>
+        <a href="{% url 'logout' %}" class="login-link">Logout</a>
+    </div>
+
+    <div class="welcome-message">Welcome to StudyBuddy</div>
+    <div class="description">Join a study room and collaborate with your peers!</div>
+
+    <h3>Available Rooms</h3>
+    <ul class="room-list">
+        {% for room in rooms %}
+            <li class="room-item">{{ room.name }}</li>
+        {% empty %}
+            <li class="room-item empty">No rooms available.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'createroom' %}">
+        <button class="create-room-button">Create Room</button>
+    </a>
+</body>
+
 </html>
