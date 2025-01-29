@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login as auth_login, logout
-from .models import registration,room,createroom
+from .models import registration,Room,createroom
 from .forms import regform,roomform,createroomform
 from django.contrib.auth.hashers import make_password, check_password
 
@@ -109,7 +109,8 @@ def login(request):
 def home(request):
     if not request.session.get("id"):
         return redirect('login')
-    croom=createroom.objects.all()
+    croom=Room.objects.all()
+    print(croom)
     return render(request, "clients/home.html", {'room': croom})
 
 
@@ -155,7 +156,7 @@ def createroom1(request):
             description=request.POST.get('description')
             client_id = request.session.get("id")
             client_instance = registration.objects.get(clientid=client_id)
-            room1=createroom(name=name,roomdescription=description,clientid=client_instance)
+            room1=Room(name=name,roomdescription=description,clientid=client_instance)
             room1.save()
             messages.success(request, 'Room created successfully')
             return redirect('home')

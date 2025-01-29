@@ -1,27 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudyBuddy - Home</title>
-</head>
-<body>
-    <h1>Welcome to StudyBuddy</h1>
-    <h2>Available Rooms</h2>
-    <a href="{% url 'logout' %}">Logout</a>
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Welcome to StudyBuddy</title>  
+</head>  
+<body>  
+    <h1>Welcome to StudyBuddy</h1>  
+    <h2>Available Rooms</h2>  
+    <ul>  
+        {% for room in rooms %}  
+            <li>{{ room.name }}: {{ room.roomdescription }}</li>  
+        {% empty %}  
+            <li>No rooms available.</li>  
+        {% endfor %}  
+    </ul>  
     <a href="{% url 'createroom' %}">Create Room</a>
-    <div>
-        {% for room in croom %}
-            <div>
-                <h3>{{ croom.name }}</h3>
-                <p>{{ croom.description }}</p>
-                <a href="{% url 'croom' room.id %}">View Details</a>
-            </div>
-            <hr>
-        {% empty %}
-            <p>No rooms available yet. Create one now!</p>
-        {% endfor %}
-    </div>
-    
-</body>
+</body>  
 </html>

@@ -18,7 +18,7 @@ class registration(models.Model):
         return self.email
     
 
-class room(models.Model):
+class Room(models.Model):
     roomid=models.AutoField(primary_key=True)
     name=models.CharField(max_length=50)
     roomdescription=models.TextField()
