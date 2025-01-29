@@ -6,9 +6,8 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login as auth_login, logout
-from django.http import HttpResponse
-from .models import registration,room
-from .forms import regform,roomform
+from .models import registration,room,createroom
+from .forms import regform,roomform,createroomform
 from django.contrib.auth.hashers import make_password, check_password
 
 
@@ -110,11 +109,8 @@ def login(request):
 def home(request):
     if not request.session.get("id"):
         return redirect('login')
-    
-    room1 = room.objects.all()
-    print(room1)  
-    
-    return render(request, "clients/home.html", {'room': room1})
+    croom=createroom.objects.all()
+    return render(request, "clients/home.html", {'room': croom})
 
 
 
@@ -149,22 +145,22 @@ def logout_view(request):
     return redirect('login')
 
 
-def createroom(request):
+def createroom1(request):
     if not request.session.get("id"):
         return redirect('login')
     if request.method == "POST":
-        form=roomform(request.POST)
+        form=createroomform(request.POST)
         if form.is_valid():
             name=request.POST.get('name')
             description=request.POST.get('description')
             client_id = request.session.get("id")
             client_instance = registration.objects.get(clientid=client_id)
-            room1=room(name=name,roomdescription=description,clientid=client_instance)
+            room1=createroom(name=name,roomdescription=description,clientid=client_instance)
             room1.save()
             messages.success(request, 'Room created successfully')
             return redirect('home')
         else:
             messages.error(request, 'Please correct the errors below.') 
     else:
-        form=roomform()
+        form=createroomform()
     return render(request, "clients/room.html",{"form":form})

@@ -28,6 +28,18 @@ class room(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class createroom(models.Model):
+    roomid=models.AutoField(primary_key=True)
+    name=models.CharField(max_length=50)
+    roomdescription=models.TextField()
+    updatetime=models.DateTimeField(auto_now=True,null=True)
+    createdtime=models.DateTimeField(auto_now_add=True)
+    clientid=models.ForeignKey(registration,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
     
     
 

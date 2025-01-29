@@ -11,11 +11,11 @@
     <a href="{% url 'logout' %}">Logout</a>
     <a href="{% url 'createroom' %}">Create Room</a>
     <div>
-        {% for room in rooms %}
+        {% for room in croom %}
             <div>
-                <h3>{{ room.name }}</h3>
-                <p>{{ room.description }}</p>
-                <a href="{% url 'rooms' room.id %}">View Details</a>
+                <h3>{{ croom.name }}</h3>
+                <p>{{ croom.description }}</p>
+                <a href="{% url 'croom' room.id %}">View Details</a>
             </div>
             <hr>
         {% empty %}

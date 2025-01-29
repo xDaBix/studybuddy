@@ -29,3 +29,9 @@ class roomform(forms.Form):
     name=forms.CharField(max_length=50,label="name")
     description=forms.CharField(widget=forms.Textarea,label="description")
     
+
+
+class createroomform(forms.Form):
+    name=forms.CharField(max_length=50,label="name")
+    description=forms.CharField(widget=forms.Textarea,label="description")
+    
