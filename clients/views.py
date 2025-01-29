@@ -109,9 +109,9 @@ def login(request):
 def home(request):
     if not request.session.get("id"):
         return redirect('login')
-    croom=Room.objects.all()
+    croom=Room.objects.filter(clientid=request.session.get("id"))
     print(croom)
-    return render(request, "clients/home.html", {'room': croom})
+    return render(request, "clients/home.html", {'rooms': croom})
 
 
 

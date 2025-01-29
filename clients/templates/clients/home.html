@@ -9,12 +9,15 @@
     <h1>Welcome to StudyBuddy</h1>  
     <h2>Available Rooms</h2>  
     <ul>  
-        {% for room in rooms %}  
-            <li>{{ room.name }}: {{ room.roomdescription }}</li>  
-        {% empty %}  
-            <li>No rooms available.</li>  
-        {% endfor %}  
+          
+   {% for room in rooms %}  
+       <li>{{ room.name }}: {{ room.roomdescription }}</li>  
+   {% empty %}  
+       <li>No rooms available.</li>  
+    {% endfor %}  
+            
     </ul>  
     <a href="{% url 'createroom' %}">Create Room</a>
+    
 </body>  
 </html>
