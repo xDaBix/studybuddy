@@ -35,5 +35,14 @@ class Room(models.Model):
         return self.participants.count()
     
 
+class Messages(models.Model):
+    clientid=models.ForeignKey(registration,on_delete=models.CASCADE)
+    room=models.ForeignKey(Room,on_delete=models.CASCADE)
+    body=models.TextField()
+    updatetime=models.DateTimeField(auto_now=True)
+    createdtime=models.DateTimeField(auto_now_add=True)
 
 
+    def __str__(self):
+        return self.body[0:50]
+    
