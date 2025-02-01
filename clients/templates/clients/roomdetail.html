@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Details - StudyBuddy</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(135deg, #1f1f2e, #3b3b58);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 0 10px;
+        }
+
+        /* Container Box */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 30px;
+            background-color: #2a2a4b;
+            border-radius: 15px;
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);
+            margin-top: 40px;
+            position: relative;
+        }
+
+        /* Header Styles */
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background-color: #252537;
+            border-bottom: 1px solid #41416e;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .header .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .header .logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 12px;
+        }
+
+        .header .logo span {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #77aaff;
+        }
+
+        .header nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header nav a {
+            color: #b3b3cc;
+            text-decoration: none;
+            font-size: 1.1em;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .header nav a:hover {
+            color: #ffffff;
+            background-color: #41416e;
+        }
+
+        /* Room Detail Section */
+        .room-detail {
+            background-color: #3a3a5c;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            margin-bottom: 25px;
+        }
+
+        .room-detail h2 {
+            color: #77aaff;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .room-detail p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .room-detail .room-info {
+            margin-bottom: 20px;
+        }
+
+        .room-detail .room-info span {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* Participants Section */
+        .participants {
+            background-color: #2a2a4b;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .participants h3 {
+            color: #77aaff;
+            margin-bottom: 15px;
+        }
+
+        .participants ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .participants ul li {
+            padding: 8px;
+            margin: 8px 0;
+            background-color: #3a3a5c;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .participants ul li:hover {
+            background-color: #41416e;
+        }
+
+        /* Button to Join */
+        .join-room-button {
+            padding: 12px 25px;
+            background-color: #77aaff;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        .join-room-button:hover {
+            background-color: #4169e1;
+        }
+
+        /* Footer Styles */
+        .footer {
+            width: 100%;
+            background-color: #252537;
+            padding: 25px 0;
+            color: #b3b3cc;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            margin-top: auto;
+        }
+
+        .footer a {
+            color: #77aaff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: #ffffff;
+        }
+
+        .footer p {
+            font-size: 0.9em;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <div class="header">
+        <div class="logo">
+            <img src="logo.png" alt="StudyBuddy Logo">
+            <span>StudyBuddy</span>
+        </div>
+        <nav>
+            <a href="#">Search for rooms</a>
+            <a href="#">Login</a>
+        </nav>
+    </div>
+
+    <!-- Room Detail Container -->
+    <div class="container">
+        <!-- Room Details -->
+        <div class="room-detail">
+            <h2>Room: {{ room.name }}</h2>
+            <p>{{ room.roomdescription }}</p> <!-- Assuming room has a description field -->
+
+            <!-- Room Information -->
+            <div class="room-info">
+                <p><span>Topic:</span> {{ room.name }}</p>
+                <p><span>Created By:</span> {{ room.creator }}</p>
+            </div>
+
+            <!-- Participants Section -->
+            <div class="participants">
+                <h3>Participants:</h3>
+                <ul>
+                    {% for participant in participants %}
+                        <li>{{ participant.name }}</li>
+                    {% empty %}
+                        <p>No participants yet.</p>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Button to Join Room -->
+            <button class="join-room-button">Join Room</button>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+        <p>&copy; 2025 StudyBuddy. All rights reserved.</p>
+        <p>
+            <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+        </p>
+    </div>
+
+</body>
+
+</html>

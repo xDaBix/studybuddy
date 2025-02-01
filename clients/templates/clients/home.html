@@ -1,34 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudyBuddy - Home</title>
     <style>
+        /* General Styles */
         body {
             margin: 0;
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #1f1f2e, #3b3b58); /* Reverted to previous color */
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(135deg, #1f1f2e, #3b3b58);
             color: #ffffff;
             display: flex;
-            flex-direction: column; /* Change to column layout */
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
-            padding: 20px; /* Add padding for spacing */
+            min-height: 100vh;
+            padding: 0 10px;
         }
 
+        /* Container Box */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            padding: 30px;
+            background-color: #2a2a4b;
+            border-radius: 15px;
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);
+            margin-top: 20px;
+            position: relative;
+        }
+
+        /* Header Styles */
         .header {
-            margin-bottom: 30px;
+            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            width: 100%; /* Full width */
-            max-width: 800px; /* Limit max width for better readability */
+            padding: 20px 5%;
+            background-color: #252537;
+            border-bottom: 1px solid #41416e;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
         .header .logo {
@@ -43,120 +54,168 @@
         }
 
         .header .logo span {
-            font-size: 1.6em;
+            font-size: 1.8em;
             font-weight: bold;
-            color: #ecf0f1;
+            color: #77aaff;
         }
 
-        .header .login-link {
-            color: #ecf0f1;
+        .header nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header nav a {
+            color: #b3b3cc;
             text-decoration: none;
-            font-size: 1em;
+            font-size: 1.1em;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .header nav a:hover {
+            color: #ffffff;
+            background-color: #41416e;
+        }
+
+        /* Section Styles */
+        .section {
+            background-color: #3a3a5c;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 25px;
+        }
+
+        .section h2 {
+            color: #77aaff;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .section ul li {
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #2a2a4b;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .section ul li:hover {
+            background-color: #41416e;
+        }
+
+        /* Footer Styles */
+        .footer {
+            width: 100%;
+            background-color: #252537;
+            padding: 25px 0;
+            color: #b3b3cc;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            margin-top: auto;
+        }
+
+        .footer a {
+            color: #77aaff;
+            text-decoration: none;
             transition: color 0.3s;
         }
 
-        .header .login-link:hover {
+        .footer a:hover {
             color: #ffffff;
         }
 
-        .welcome-message {
-            margin-bottom: 20px;
-            color: #1abc9c;
-            font-size: 2em;
+        .footer p {
+            font-size: 0.9em;
         }
 
-        .description {
-            margin-bottom: 20px;
-            color: #bdc3c7;
-            font-size: 1.1em;
-        }
-
-        .room-list {
-            list-style: none;
-            padding: 0;
-            margin-top: 20px;
-            text-align: left; /* Align text to the left */
-            width: 100%; /* Full width */
-            max-width: 800px; /* Limit max width for better readability */
-        }
-
-        .room-item {
-            background-color: rgba(52, 73, 94, 0.8);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            color: #ffffff;
-            font-size: 1.1em;
-            transition: background-color 0.3s;
-        }
-
-        .room-item:hover {
-            background-color: #34495e;
-        }
-
-        .room-item.empty {
-            color: #b3b3cc;
-            font-style: italic;
-        }
-
-        .create-room-button {
-            width: 100%;
-            padding: 12px;
-            background-color: #1abc9c;
-            color: #ffffff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.1em;
-            transition: background-color 0.3s;
-            margin-top: 20px; /* Add margin for spacing */
-        }
-
-        .create-room-button:hover {
-            background-color: #16a085;
-        }
-
-        .signup-link {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .signup-link a {
-            color: #1abc9c;
-            text-decoration: none;
-            font-size: 1em;
-        }
-
-        .signup-link a:hover {
-            text-decoration: underline;
+        /* Responsive Grid Layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
         }
     </style>
 </head>
-
 <body>
+
+    
     <div class="header">
         <div class="logo">
             <img src="logo.png" alt="StudyBuddy Logo">
             <span>StudyBuddy</span>
         </div>
-        <a href="{% url 'logout' %}" class="login-link">Logout</a>
+        <nav>
+            <a href="#">Search for rooms</a>
+            <a href="{% url "login" %}">Login</a>
+        </nav>
     </div>
 
-    <div class="welcome-message">Welcome to StudyBuddy</div>
-    <div class="description">Join a study room and collaborate with your peers!</div>
+    
+    <div class="container">
+        <div class="grid-container">
+    
+            <div class="section">
+                <h2>BROWSE TOPICS</h2>
+                <ul>
+                    <li>All</li>
+                    <li>Python (2)</li>
+                    <li>HTML (0)</li>
+                    <li>JavaScript (0)</li>
+                    <li>ReactJS (0)</li>
+                    <li>NextJS (0)</li>
+                    <li>AWS (0)</li>
+                    <li>Appwrite (0)</li>
+                </ul>
+            </div>
 
-    <h3>Available Rooms</h3>
-    <ul class="room-list">
-        {% for room in rooms %}
-            <li class="room-item">{{ room.name }}</li>
-        {% empty %}
-            <li class="room-item empty">No rooms available.</li>
-        {% endfor %}
-    </ul>
+            
+            <div class="section">
+                <h2>ROOMS</h2>
+                <p>Available Rooms</p>
+                <div>
+                    {% for room in rooms %}
+                        <a href="{% url 'roomdetail' room.roomid %}"style="color:white"><p>{{ room.name }}</p></a>
+                    {% empty %}
+                        <p><strong>No rooms available.</strong></p>
+                    {% endfor %}
+                </div>
+            </div>
 
-    <a href="{% url 'createroom' %}">
-        <button class="create-room-button">Create Room</button>
-    </a>
+            
+            <div class="section">
+                <h2>TOP HOSTS</h2>
+                <ul>
+                    <li>Praveen Kumar</li>
+                    <li>Demois Ivanov</li>
+                    <li>Gary Simon</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="footer">
+        <p>&copy; 2025 StudyBuddy. All rights reserved.</p>
+        <p>
+            <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+        </p>
+    </div>
+
 </body>
-
 </html>

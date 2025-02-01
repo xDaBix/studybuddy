@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login as auth_login, logout
-from .models import registration,Room,createroom
+from .models import registration,Room
 from .forms import regform,roomform,createroomform
 from django.contrib.auth.hashers import make_password, check_password
 
@@ -165,3 +165,10 @@ def createroom1(request):
     else:
         form=createroomform()
     return render(request, "clients/room.html",{"form":form})
+
+
+def roomdetail(request,id):
+    if not request.session.get("id"):
+        return redirect('login')
+    room=Room.objects.get(roomid=id)
+    return render(request, "clients/roomdetail.html",{"room":room})

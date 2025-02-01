@@ -1,6 +1,6 @@
 from datetime import date,timedelta
 from django import forms
-from .models import registration,Room,createroom
+from .models import registration,Room
 
 class regform(forms.Form):
     firstname=forms.CharField(max_length=50,label="firstname")
