@@ -109,9 +109,10 @@ def login(request):
 def home(request):
     if not request.session.get("id"):
         return redirect('login')
+    topics = Room.objects.values_list('topics',flat=True).distinct()
     croom=Room.objects.filter(clientid=request.session.get("id"))
-    print(croom)
-    return render(request, "clients/home.html", {'rooms': croom})
+    context = {'topics': topics,'rooms':croom}
+    return render(request, "clients/home.html", context)
 
 
 

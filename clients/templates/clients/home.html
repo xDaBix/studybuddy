@@ -172,16 +172,12 @@
     
             <div class="section">
                 <h2>BROWSE TOPICS</h2>
+                {% for topic in topics  %}
                 <ul>
-                    <li>All</li>
-                    <li>Python (2)</li>
-                    <li>HTML (0)</li>
-                    <li>JavaScript (0)</li>
-                    <li>ReactJS (0)</li>
-                    <li>NextJS (0)</li>
-                    <li>AWS (0)</li>
-                    <li>Appwrite (0)</li>
+                    <li>{{topic}}</li>
                 </ul>
+                
+                {% endfor %}
             </div>
 
             

@@ -26,6 +26,7 @@ class Room(models.Model):
     createdtime=models.DateTimeField(auto_now_add=True)
     clientid=models.ForeignKey(registration,on_delete=models.CASCADE)
     capacity = models.IntegerField(null=True, blank=True)
+    topics=models.CharField(max_length=50,null=True)
     participants=models.ManyToManyField(registration,related_name='participants')
 
     def __str__(self):
