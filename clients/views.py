@@ -107,6 +107,7 @@ def login(request):
 
 
 def home(request):
+    q = request.GET.get('q')
     if not request.session.get("id"):
         return redirect('login')
     topics = Room.objects.values_list('topics',flat=True).distinct()

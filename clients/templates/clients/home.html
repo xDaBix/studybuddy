@@ -172,10 +172,14 @@
     
             <div class="section">
                 <h2>BROWSE TOPICS</h2>
+                <ul>
+
+                <li><a href="{% url "home" %}" style="color:white">All</a></li>
+                </ul>
                 {% for topic in topics  %}
                 <ul>
-                    <li>{{topic}}</li>
-                </ul>
+                <li><a href="{% url "home" %}?q={{topic}}" style="color:white">{{topic}}</a></li>
+                    </ul>
                 
                 {% endfor %}
             </div>
