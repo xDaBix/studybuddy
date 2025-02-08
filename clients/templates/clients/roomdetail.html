@@ -186,7 +186,7 @@
 
 <body>
 
-    <!-- Header Section -->
+    
     <div class="header">
         <div class="logo">
             <img src="logo.png" alt="StudyBuddy Logo">
@@ -194,24 +194,24 @@
         </div>
         <nav>
             <a href="#">Search for rooms</a>
-            <a href="#">Login</a>
+            <a href="{% url "login" %}">Login</a>
         </nav>
     </div>
 
-    <!-- Room Detail Container -->
+    
     <div class="container">
-        <!-- Room Details -->
+        
         <div class="room-detail">
             <h2>Room: {{ room.name }}</h2>
-            <p>{{ room.roomdescription }}</p> <!-- Assuming room has a description field -->
+            <p>{{ room.roomdescription }}</p> 
 
-            <!-- Room Information -->
+            
             <div class="room-info">
                 <p><span>Topic:</span> {{ room.name }}</p>
                 <p><span>Created By:</span> {{ room.creator }}</p>
             </div>
 
-            <!-- Participants Section -->
+            
             <div class="participants">
                 <h3>Participants:</h3>
                 <ul>
@@ -223,12 +223,17 @@
                 </ul>
             </div>
 
-            <!-- Button to Join Room -->
+                        
+            {% if not is_owner %}
             <button class="join-room-button">Join Room</button>
+        {% endif %}
+        
+
+
         </div>
     </div>
 
-    <!-- Footer Section -->
+    
     <div class="footer">
         <p>&copy; 2025 StudyBuddy. All rights reserved.</p>
         <p>

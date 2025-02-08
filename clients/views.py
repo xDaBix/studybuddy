@@ -169,8 +169,15 @@ def createroom1(request):
     return render(request, "clients/room.html",{"form":form})
 
 
-def roomdetail(request,id):
+def roomdetail(request, id):
     if not request.session.get("id"):
         return redirect('login')
-    room=Room.objects.get(roomid=id)
-    return render(request, "clients/roomdetail.html",{"room":room})
+
+    room = Room.objects.get(roomid=id)
+    user = registration.objects.get(clientid=request.session.get("id"))
+    is_owner = room.clientid == user  
+
+    return render(request, "clients/roomdetail.html", {
+        "room": room,
+        "is_owner": is_owner
+    })
