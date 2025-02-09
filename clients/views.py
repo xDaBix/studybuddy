@@ -4,9 +4,9 @@ from django.conf import settings
 from django.utils import timezone
 from django.contrib import messages
 from django.core.mail import send_mail
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render , get_object_or_404
 from django.contrib.auth import authenticate, login as auth_login, logout
-from .models import registration,Room
+from .models import registration,Room,Messages
 from .forms import regform,roomform,createroomform
 from django.contrib.auth.hashers import make_password, check_password
 
@@ -181,3 +181,33 @@ def roomdetail(request, id):
         "room": room,
         "is_owner": is_owner
     })
+
+
+def room_messages(request, room_id):
+    user_id = request.session.get("id")
+    if not user_id:
+        return redirect('login')
+
+    user = get_object_or_404(registration, clientid=user_id)
+    room = get_object_or_404(Room, roomid=room_id)
+
+    is_owner = room.clientid == user
+    is_participant = room.participants.filter(clientid=user).exists()
+
+    if not (is_owner or is_participant):
+        return redirect('home')
+
+    if request.method == "POST":
+        body = request.POST.get("message")
+        if body:
+            Messages.objects.create(clientid=user, room=room, body=body)
+
+    messages = Messages.objects.filter(room=room).order_by("createdtime")
+
+    context = {
+        "room": room,
+        "messages": messages,
+        "is_participant": is_participant,
+        "is_owner": is_owner
+    }
+    return render(request, "clients/roomdetail.html", context)

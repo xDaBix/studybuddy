@@ -227,6 +227,29 @@
             {% if not is_owner %}
             <button class="join-room-button">Join Room</button>
         {% endif %}
+
+        
+        <div class="chat-section">
+            <h3>Chat Messages</h3>
+            
+            <div class="messages">
+                {% for message in messages %}
+                    <p><strong>{{ message.clientid.firstname }}</strong>: {{ message.body }}</p>
+                {% empty %}
+                    <p>No messages yet.</p>
+                {% endfor %}
+            </div>
+        
+            {% if is_participant %}
+            <form method="POST">
+                {% csrf_token %}
+                <textarea name="message" placeholder="Type your message here..."></textarea>
+                <button type="submit">Send</button>
+            </form>
+            {% else %}
+            <p>You must join the room to send messages.</p>
+            {% endif %}
+        </div>
         
 
 
