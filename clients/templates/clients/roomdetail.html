@@ -6,11 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Room Details - StudyBuddy</title>
     <style>
-        /* General Styles */
         body {
             margin: 0;
-            font-family: 'Roboto', Arial, sans-serif;
-            background: linear-gradient(135deg, #1f1f2e, #3b3b58);
+            font-family: 'Poppins', Arial, sans-serif;
+            background: linear-gradient(135deg, #141e30, #243b55);
             color: #ffffff;
             display: flex;
             flex-direction: column;
@@ -19,27 +18,26 @@
             padding: 0 10px;
         }
 
-        /* Container Box */
         .container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1000px;
             padding: 30px;
-            background-color: #2a2a4b;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             border-radius: 15px;
             box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);
             margin-top: 40px;
-            position: relative;
         }
 
-        /* Header Styles */
         .header {
             width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 5%;
-            background-color: #252537;
-            border-bottom: 1px solid #41416e;
+            padding: 15px 5%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid #77aaff;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
@@ -60,28 +58,22 @@
             color: #77aaff;
         }
 
-        .header nav {
-            display: flex;
-            gap: 20px;
-        }
-
         .header nav a {
             color: #b3b3cc;
             text-decoration: none;
             font-size: 1.1em;
             padding: 8px 15px;
             border-radius: 5px;
-            transition: background-color 0.3s, color 0.3s;
+            transition: 0.3s;
         }
 
         .header nav a:hover {
             color: #ffffff;
-            background-color: #41416e;
+            background: rgba(119, 170, 255, 0.2);
         }
 
-        /* Room Detail Section */
         .room-detail {
-            background-color: #3a3a5c;
+            background: rgba(255, 255, 255, 0.1);
             padding: 25px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
@@ -91,102 +83,128 @@
         .room-detail h2 {
             color: #77aaff;
             font-size: 2em;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .room-detail p {
             font-size: 1.1em;
-            margin-bottom: 20px;
+            margin: 5px 0;
         }
 
-        .room-detail .room-info {
-            margin-bottom: 20px;
-        }
-
-        .room-detail .room-info span {
-            font-weight: bold;
-            margin-right: 10px;
-        }
-
-        /* Participants Section */
         .participants {
-            background-color: #2a2a4b;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
         }
 
         .participants h3 {
             color: #77aaff;
-            margin-bottom: 15px;
+            font-size: 1.5em;
+            margin-bottom: 10px;
         }
 
         .participants ul {
-            list-style-type: none;
+            list-style: none;
             padding: 0;
         }
 
         .participants ul li {
-            padding: 8px;
+            padding: 10px;
             margin: 8px 0;
-            background-color: #3a3a5c;
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 5px;
-            transition: background-color 0.3s;
+            transition: 0.3s;
         }
 
         .participants ul li:hover {
-            background-color: #41416e;
+            background: rgba(119, 170, 255, 0.2);
         }
 
-        /* Button to Join */
+        .chat-section {
+            margin-top: 25px;
+        }
+
+        .chat-section h3 {
+            color: #77aaff;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .chat-messages {
+            width: 100%;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #77aaff;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 1em;
+            color: #fff;
+            resize: none;
+            overflow-y: auto;
+        }
+
+        .message-form {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .message-input {
+            flex: 1;
+            height: 50px;
+            padding: 10px;
+            border-radius: 8px 0 0 8px;
+            border: 1px solid #77aaff;
+            font-size: 1em;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .message-input::placeholder {
+            color: #b3b3cc;
+        }
+
+        .send-button {
+            height: 50px;
+            padding: 0 20px;
+            border: none;
+            border-radius: 0 8px 8px 0;
+            background: #77aaff;
+            color: white;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .send-button:hover {
+            background: #4169e1;
+        }
+
         .join-room-button {
             padding: 12px 25px;
-            background-color: #77aaff;
+            background: #77aaff;
             border: none;
             border-radius: 5px;
             color: white;
             font-size: 1.2em;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: 0.3s;
             margin-top: 20px;
         }
 
         .join-room-button:hover {
-            background-color: #4169e1;
+            background: #4169e1;
         }
 
-        /* Footer Styles */
         .footer {
             width: 100%;
-            background-color: #252537;
-            padding: 25px 0;
-            color: #b3b3cc;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
             text-align: center;
-            position: relative;
-            bottom: 0;
-            margin-top: auto;
+            margin-top: 30px;
         }
-
-        .footer a {
-            color: #77aaff;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer a:hover {
-            color: #ffffff;
-        }
-
-        .footer p {
-            font-size: 0.9em;
-        }
-
     </style>
 </head>
 
 <body>
-
-    
     <div class="header">
         <div class="logo">
             <img src="logo.png" alt="StudyBuddy Logo">
@@ -194,26 +212,16 @@
         </div>
         <nav>
             <a href="#">Search for rooms</a>
-            <a href="{% url "login" %}">Login</a>
+            <a href="{% url 'login' %}">Login</a>
         </nav>
     </div>
 
-    
     <div class="container">
-        
         <div class="room-detail">
-            <h2>Room: {{ room.name }}</h2>
-            <p>{{ room.roomdescription }}</p> 
+            <h2>{{ room.name }}</h2>
 
-            
-            <div class="room-info">
-                <p><span>Topic:</span> {{ room.name }}</p>
-                <p><span>Created By:</span> {{ room.creator }}</p>
-            </div>
-
-            
             <div class="participants">
-                <h3>Participants:</h3>
+                <h3>Participants</h3>
                 <ul>
                     {% for participant in participants %}
                         <li>{{ participant.name }}</li>
@@ -223,47 +231,35 @@
                 </ul>
             </div>
 
-                        
             {% if not is_owner %}
             <button class="join-room-button">Join Room</button>
-        {% endif %}
-
-        
-        <div class="chat-section">
-            <h3>Chat Messages</h3>
-            
-            <div class="messages">
-                {% for message in messages %}
-                    <p><strong>{{ message.clientid.firstname }}</strong>: {{ message.body }}</p>
-                {% empty %}
-                    <p>No messages yet.</p>
-                {% endfor %}
-            </div>
-        
-            {% if is_participant %}
-            <form method="POST">
-                {% csrf_token %}
-                <textarea name="message" placeholder="Type your message here..."></textarea>
-                <button type="submit">Send</button>
-            </form>
-            {% else %}
-            <p>You must join the room to send messages.</p>
             {% endif %}
-        </div>
-        
 
+            <div class="chat-section">
+                <h3>Chat Messages</h3>
+                <textarea class="chat-messages" readonly>
+                    {% for message in messages %}
+                    {{ message.clientid.firstname }}: {{ message.body }}
+                    {% empty %}
+                    No messages yet.
+                    {% endfor %}
+                </textarea>
 
+                {% if is_participant or is_owner %}
+                <form method="POST" class="message-form">
+                    {% csrf_token %}
+                    <input type="text" class="message-input" name="message" placeholder="Type your message...">
+                    <button type="submit" class="send-button">Send</button>
+                </form>
+                {% else %}
+                <p>You must join the room to send messages.</p>
+                {% endif %}
+            </div>
         </div>
     </div>
 
-    
     <div class="footer">
         <p>&copy; 2025 StudyBuddy. All rights reserved.</p>
-        <p>
-            <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
-        </p>
     </div>
-
 </body>
-
 </html>
