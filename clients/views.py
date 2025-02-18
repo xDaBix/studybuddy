@@ -178,7 +178,7 @@ def roomdetail(request, id):
     is_owner = room.clientid == user  
     is_participant = room.participants.filter(clientid=user).exists()
     
-    # Fetch messages & participants
+    
     messages = Messages.objects.filter(room=room).order_by("createdtime")
     participants = room.participants.all()
 
