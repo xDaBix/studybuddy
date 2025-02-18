@@ -168,20 +168,32 @@ def createroom1(request):
         form=createroomform()
     return render(request, "clients/room.html",{"form":form})
 
-
 def roomdetail(request, id):
     if not request.session.get("id"):
         return redirect('login')
 
-    room = Room.objects.get(roomid=id)
-    user = registration.objects.get(clientid=request.session.get("id"))
+    room = get_object_or_404(Room, roomid=id)
+    user = get_object_or_404(registration, clientid=request.session.get("id"))
+
     is_owner = room.clientid == user  
+    is_participant = room.participants.filter(clientid=user).exists()
+    
+    # Fetch messages & participants
+    messages = Messages.objects.filter(room=room).order_by("createdtime")
+    participants = room.participants.all()
+
+    if request.method == "POST":
+        body = request.POST.get("message", "").strip()
+        if body:
+            Messages.objects.create(clientid=user, room=room, body=body)
 
     return render(request, "clients/roomdetail.html", {
         "room": room,
+        "messages": messages,
+        "participants": participants,
+        "is_participant": is_participant,
         "is_owner": is_owner
     })
-
 
 def room_messages(request, room_id):
     user_id = request.session.get("id")
