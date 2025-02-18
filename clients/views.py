@@ -175,8 +175,8 @@ def roomdetail(request, id):
     room = get_object_or_404(Room, roomid=id)
     user = get_object_or_404(registration, clientid=request.session.get("id"))
 
-    is_owner = room.clientid == user  
-    is_participant = room.participants.filter(clientid=user).exists()
+    is_owner = room.clientid == request.session.get("id")  
+    is_participant = room.participants.filter(clientid=request.session.get("id")).exists()
     
     
     messages = Messages.objects.filter(room=room).order_by("createdtime")
@@ -185,7 +185,7 @@ def roomdetail(request, id):
     if request.method == "POST":
         body = request.POST.get("message", "").strip()
         if body:
-            Messages.objects.create(clientid=user, room=room, body=body)
+            Messages.objects.create(clientid=request.session.get("id"), room=room, body=body)
 
     return render(request, "clients/roomdetail.html", {
         "room": room,
