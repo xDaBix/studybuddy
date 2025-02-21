@@ -12,6 +12,7 @@ urlpatterns = [
     path('verifyotp/',views.verifyotp,name="verifyotp"),
     path('createroom/',views.createroom1,name="createroom"),
     path('roomdetail/<int:id>/',views.roomdetail,name="roomdetail"),
+    path('join/<int:room_id>/', views.join_room, name='joinroom'),
 
     
 

@@ -105,41 +105,65 @@ def login(request):
 
     return render(request, 'clients/login.html', {'attempts_left': attempts_left})
 
-
 def home(request):
     q = request.GET.get('q')
+    
     if not request.session.get("id"):
-        return redirect('login')
-    topics = Room.objects.values_list('topics',flat=True).distinct()
-    croom=Room.objects.filter(clientid=request.session.get("id"))
-    context = {'topics': topics,'rooms':croom}
-    return render(request, "clients/home.html", context)
+        return redirect('login') 
 
+    topics = Room.objects.values_list('topics', flat=True).distinct()
+    croom = Room.objects.filter(clientid=request.session.get("id"))
+    all_rooms = Room.objects.all()  
+    
+    context = {
+        'topics': topics,
+        'rooms': croom,
+        'all_rooms': all_rooms  
+    }
+    
+    return render(request, "clients/home.html", context)
 
 
 def verifyotp(request):
     if request.method == "POST":
         otp = request.POST.get('otp')
-        re = request.session.get('regdata')
-        if otp and re and int(otp) == re.get('otp'):
-            dobstr = re.get('dateofbirth')
-            dob1 = datetime.strptime(dobstr, '%Y-%m-%d').date()
-            cl = registration(
-                firstname=re.get('firstname'),
-                lastname=re.get('lastname'),
-                contactno=re.get('contactno'),
-                gender=re.get('gender'),
-                email=re.get('email'),
-                password=make_password(re.get('password')),
-                dateofbirth=dob1
-            )
-            cl.save()
-            request.session['id'] = cl.clientid
-            request.session.modified = True
-            messages.success(request, 'Registration successful')
-            return redirect('home')
+        regdata = request.session.get('regdata')
+        
+        if not regdata:
+        
+            messages.error(request, 'Session data missing. Please try again.')
+            return redirect('signup')  
+        
+        
+        if otp and int(otp) == regdata.get('otp'):
+            try:
+                dobstr = regdata.get('dateofbirth')
+                dob1 = datetime.strptime(dobstr, '%Y-%m-%d').date()
+                
+                
+                cl = registration(
+                    firstname=regdata.get('firstname'),
+                    lastname=regdata.get('lastname'),
+                    contactno=regdata.get('contactno'),
+                    gender=regdata.get('gender'),
+                    email=regdata.get('email'),
+                    password=make_password(regdata.get('password')),
+                    dateofbirth=dob1
+                )
+                cl.save()
+
+                
+                request.session['id'] = cl.clientid
+                request.session.modified = True
+                messages.success(request, 'Registration successful')
+                return redirect('home')
+            except Exception as e:
+                messages.error(request, f"An error occurred: {str(e)}")
+                return redirect('signup') 
         else:
             messages.error(request, 'Invalid OTP')
+            return redirect('verifyotp')  
+
     return render(request, 'clients/verifyotp.html')
 
 
@@ -175,17 +199,16 @@ def roomdetail(request, id):
     room = get_object_or_404(Room, roomid=id)
     user = get_object_or_404(registration, clientid=request.session.get("id"))
 
-    is_owner = room.clientid == request.session.get("id")  
+    is_owner = room.clientid == request.session.get("id")
     is_participant = room.participants.filter(clientid=request.session.get("id")).exists()
-    
-    
+
     messages = Messages.objects.filter(room=room).order_by("createdtime")
     participants = room.participants.all()
 
     if request.method == "POST":
         body = request.POST.get("message", "").strip()
         if body:
-            Messages.objects.create(clientid=request.session.get("id"), room=room, body=body)
+            Messages.objects.create(clientid=user, room=room, body=body)
 
     return render(request, "clients/roomdetail.html", {
         "room": room,
@@ -222,4 +245,9 @@ def room_messages(request, room_id):
         "is_participant": is_participant,
         "is_owner": is_owner
     }
+    
     return render(request, "clients/roomdetail.html", context)
+
+def join_room(request, room_id):
+    room = Room.objects.get(id=room_id)
+    return redirect('home')
