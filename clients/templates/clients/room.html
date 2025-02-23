@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rooms</title>
+    <title>Create Room</title>
     {% load static %}
     <style>
         label {
@@ -20,15 +20,15 @@
             background-color: #1f1f2e;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            flex-direction: column;
-            height: 100vh;
-            padding-top: 20px; /* Added padding to avoid header sticking to the top */
+            align-items: center;
+            height: 100%%; /* Full viewport height */
+            
         }
         
         .container {
             text-align: center;
             width: 100%;
+            
         }
         
         .header {
@@ -39,7 +39,7 @@
             padding: 15px;
             background-color: #252537;
             border-bottom: 1px solid #41416e;
-            width: 100%;
+            
         }
         
         .header .logo {
@@ -74,25 +74,21 @@
             padding: 20px;
             width: 100%;
             max-width: 400px;
-            margin: 0 auto 20px;
+            margin: 0 auto;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
         
-        .room-box input,
-        .room-box button {
+        .room-box input {
             width: 100%;
             padding: 12px;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             border-radius: 5px;
             border: 1px solid #444;
             background-color: #3a3a5c;
             color: #ffffff;
             font-size: 1.1em;
-            box-sizing: border-box;
+            box-sizing: border-box; /* Ensures padding does not affect width */
         }
         
         .room-box input::placeholder {
@@ -100,64 +96,27 @@
         }
         
         .room-box button {
+            width: 100%;
+            padding: 12px;
             background-color: #4c8bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
+            font-size: 1.2em;
+            box-sizing: border-box; /* Ensures padding does not affect width */
         }
         
         .room-box button:hover {
             background-color: #3a6edb;
         }
         
-        .join-button {
-            background-color: #28a745;
-            margin-top: 10px;
-            font-size: 1.1em;
-        }
-        
-        .join-button:hover {
-            background-color: #218838;
-        }
-        
-        .rooms-list {
-            width: 100%;
-            max-width: 600px;
-            margin: 20px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .room-item {
-            background-color: #252537;
-            padding: 20px;
-            width: 100%;
-            max-width: 500px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: left;
-        }
-        
-        .room-item h3 {
-            margin: 0;
-            font-size: 1.3em;
-            color: #77aaff;
-        }
-        
-        .room-item p {
-            color: #b3b3cc;
-            font-size: 1.1em;
-            margin: 10px 0;
-        }
-        
         @media (max-width: 768px) {
             .room-box {
-                width: 90%;
-            }
-            .rooms-list {
-                width: 90%;
+                width: 90%; /* Make the box responsive for smaller screens */
             }
         }
+        
     </style>
 </head>
 <body>
@@ -167,12 +126,14 @@
                 <img src="{% static 'images/logo.png' %}" alt="logo">
                 <span>StudyBud</span>
             </div>
+            
         </div>
 
         <div class="room-box">
             <h2>Create a Room</h2>
             <form action="{% url 'createroom' %}" method="post">
                 {% csrf_token %}
+                
                 <label for="name">Room Name</label>
                 <input type="text" name="name" id="name" placeholder="Enter room name" required>
                 
@@ -181,34 +142,6 @@
                 
                 <button type="submit">Create Room</button>
             </form>
-        </div>
-
-        <div class="rooms-list">
-            <h2>Available Rooms</h2>
-            {% for room in available_rooms %}
-            <div class="room-item">
-                <h3>{{ room.name }}</h3>
-                <p>{{ room.description }}</p>
-                <form action="{% url 'joinroom' room.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="join-button">Join Room</button>
-                </form>
-            </div>
-            {% empty %}
-            <p>No rooms available to join.</p>
-            {% endfor %}
-        </div>
-
-        <div class="rooms-list">
-            <h2>Your Rooms</h2>
-            {% for room in rooms %}
-            <div class="room-item">
-                <h3>{{ room.name }}</h3>
-                <p>{{ room.description }}</p>
-            </div>
-            {% empty %}
-            <p>You haven't created any rooms yet.</p>
-            {% endfor %}
         </div>
     </div>
 </body>

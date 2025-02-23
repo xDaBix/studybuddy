@@ -171,26 +171,22 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
+def create_room(request):
+    return render(request, 'clients/room.html')
 
-def createroom1(request):
-    if not request.session.get("id"):
-        return redirect('login')
+def createroom(request):
     if request.method == "POST":
-        form=createroomform(request.POST)
-        if form.is_valid():
-            name=request.POST.get('name')
-            description=request.POST.get('description')
-            client_id = request.session.get("id")
-            client_instance = registration.objects.get(clientid=client_id)
-            room1=Room(name=name,roomdescription=description,clientid=client_instance)
-            room1.save()
-            messages.success(request, 'Room created successfully')
+        room_name = request.POST.get("name")
+        room_description = request.POST.get("description")
+        
+        if room_name and room_description:
+            room = Room(name=room_name, description=room_description)
+            room.save()
+            messages.success(request, 'Room created successfully!')
             return redirect('home')
         else:
-            messages.error(request, 'Please correct the errors below.') 
-    else:
-        form=createroomform()
-    return render(request, "clients/room.html",{"form":form})
+            messages.error(request, 'Please fill in all fields.')
+            return redirect('create_room')
 
 def roomdetail(request, id):
     if not request.session.get("id"):
@@ -248,6 +244,10 @@ def room_messages(request, room_id):
     
     return render(request, "clients/roomdetail.html", context)
 
-def join_room(request, room_id):
-    room = Room.objects.get(id=room_id)
-    return redirect('home')
+def join_room(request, roomid):
+    room = get_object_or_404(Room, roomid=roomid)
+    if room.owner != request.user:
+        room.members.add(request.user)
+        return redirect('roomdetail', roomid=roomid)
+    else:
+        return redirect('home')

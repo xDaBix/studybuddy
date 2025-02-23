@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a Room</title>
+    {% load static %}
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #1f1f2e;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .container {
+            background-color: #252537;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        h2 {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #b3b3cc;
+        }
+        
+        input,
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background-color: #3a3a5c;
+            color: #ffffff;
+            font-size: 1.1em;
+        }
+        
+        button {
+            background-color: #4c8bff;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #3a6edb;
+        }
+        
+        .back-link {
+            color: #b3b3cc;
+            text-decoration: none;
+            font-size: 1.1em;
+            display: block;
+            margin-top: 20px;
+        }
+        
+        .back-link:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Create a Room</h2>
+        <form action="{% url 'createroom' %}" method="post">
+            {% csrf_token %}
+            <label for="name">Room Name</label>
+            <input type="text" name="name" id="name" placeholder="Enter room name" required>
+
+            <label for="description">Room Description</label>
+            <input type="text" name="description" id="description" placeholder="Enter room description" required>
+
+            <button type="submit">Create Room</button>
+        </form>
+        <a href="{% url 'home' %}" class="back-link">Back to Home</a>
+    </div>
+</body>
+</html>
